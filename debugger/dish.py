@@ -3,14 +3,16 @@ import zmq
 import base64
 import numpy as np
 
-context = zmq.Context()
-socket = context.socket(zmq.SUB)
-socket.bind('tcp://*:7777')
-socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
+context = zmq.Context.instance()
+dish = context.socket(zmq.DISH)
+dish.rcvtimeo = 1000
+dish.bind('udp://*:7777')
+dish.join('feed')
+dish.setsockopt_string(zmq.DISH, np.unicode(''))
 
 while True:
     try:
-        image_string = socket.recv_string()
+        image_string = dish.recv_string()
         raw_image = base64.b64decode(image_string)
         image = np.frombuffer(raw_image, dtype=np.uint8)
         frame = cv2.imdecode(image, 1)
@@ -19,3 +21,7 @@ while True:
     except KeyboardInterrupt:
         cv2.destroyAllWindows()
         break
+
+dish.close()
+context
+.term()
