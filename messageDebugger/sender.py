@@ -1,6 +1,6 @@
 import json
-import base64
 import zmq
+import time
 
 """
 send phi, theata and lockon:bool
@@ -11,10 +11,18 @@ msg = {
     "lockon":False
 }
 
+host = "178.174.148.6"
+port = "7777"
 
-DOMAIN = "localhost"
+# Creates a socket instance
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
-socket.connect(f'tcp:/{DOMAIN}/:7777')
 
-socket.send(json.dumps(msg))
+# Binds the socket to a predefined port on a host.
+socket.connect(f"tcp://{host}:{port}")
+
+# Sleeps to give time to setup the connection.
+time.sleep(1)
+
+# Sends the instruction JSON.
+socket.send_json(msg)

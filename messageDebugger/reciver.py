@@ -1,14 +1,19 @@
 import zmq
 import base64
 import numpy as np
+import json
 
 def recive():
+    host = "*"
+    port = "7777"
+
+    # Creates a socket instance
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
-    socket.bind('tcp://*:7777')
-    socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
+    socket.bind(f"tcp://{host}:{port}")
+
+    socket.subscribe("")
     while True:
-        msg_string = socket.recv_string()
-        msg = json.loads(msg_string)
-        if msg:
-            print(msg)
+        msg = socket.recv_json()
+
+recive()
