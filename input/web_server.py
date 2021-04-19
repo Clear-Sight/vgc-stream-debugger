@@ -2,7 +2,23 @@ import json
 from flask import Flask
 app = Flask(__name__)
 
+usr_msg = {
+    "compass":0,
+    "angle":0,
+    "lock_on": False
+}
 
+def add_to_usr_msg():
+    degree = 0.08
+    if usr_msg["compass"] < 360:
+        usr_msg["compass"] += degree
+    else:
+        usr_msg["compass"] = 0
+    if usr_msg["angle"] < 90:
+        usr_msg["angle"] += degree
+    else:
+        usr_msg["angle"] = 0
+    return usr_msg
 
 def load_user_msg():
     """ returns a dict of the config from config.json """
@@ -17,7 +33,8 @@ def hello_world():
 
 @app.route('/drone/user/fetch')
 def message_drone():
-    return json.dumps(load_user_msg())
+    return json.dumps(add_to_usr_msg())
+    # return json.dumps(load_user_msg())
 
 
 if __name__=="__main__":
