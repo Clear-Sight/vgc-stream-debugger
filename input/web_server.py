@@ -5,11 +5,12 @@ app = Flask(__name__)
 usr_msg = {
     "compass":0,
     "angle":0,
+    "zoom":2,
     "lock_on": False
 }
 
 def add_to_usr_msg():
-    degree = 0.08
+    degree = 0.5
     if usr_msg["compass"] < 360:
         usr_msg["compass"] += degree
     else:
@@ -18,6 +19,10 @@ def add_to_usr_msg():
         usr_msg["angle"] += degree
     else:
         usr_msg["angle"] = 0
+    if usr_msg["zoom"] < 10:
+        usr_msg["zoom"] += degree
+    else:
+        usr_msg["zoom"] = 0
     return usr_msg
 
 def load_user_msg():
@@ -32,6 +37,7 @@ def hello_world():
     return 'Hello, World!'
 
 @app.route('/drone/user/fetch')
+@app.route('/drone/user/fetch/')
 def message_drone():
     return json.dumps(add_to_usr_msg())
     # return json.dumps(load_user_msg())
