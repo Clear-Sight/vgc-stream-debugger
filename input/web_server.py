@@ -36,12 +36,16 @@ def load_user_msg():
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/drone/user/fetch')
-@app.route('/drone/user/fetch/')
-def message_drone():
-    return json.dumps(add_to_usr_msg())
-    # return json.dumps(load_user_msg())
+@app.route("/drone/user/fetch")
+@app.route("/drone/user/fetch/")
+def user_input_page():
+	return json.dumps({
+        "compass":0,
+        "angle":0,
+        "zoom":2,
+        "lock_on": False
+    })
 
 
 if __name__=="__main__":
-	app.run(debug=True, port="24474")
+	app.run(debug=False, host="0.0.0.0", port="24474")
