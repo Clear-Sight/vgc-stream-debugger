@@ -24,8 +24,14 @@ pip3 install -r requirements.txt
 To start the debugger all you need to do is
 
 ```bash
-python3 -m debugger
+python3 -m input
 ```
+and
+```bash
+python3 -m output
+```
+
+This will need to run this commands at the same time. So you need two terminals.
 
 When a connection is made a window will appear showing the stream.
 

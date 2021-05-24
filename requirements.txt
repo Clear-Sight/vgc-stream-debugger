@@ -9,11 +9,15 @@ Cython==0.29.21
 EasyProcess==0.3
 entrypoint2==0.2.3
 flake8==3.8.4
+Flask==1.1.2
 idna==2.10
 iso-639==0.4.5
 iso3166==1.0.1
 isodate==0.6.0
+itsdangerous==1.1.0
 jeepney==0.6.0
+Jinja2==2.11.3
+MarkupSafe==1.1.1
 mccabe==0.6.1
 mss==6.1.0
 mypy-extensions==0.4.3
@@ -39,5 +43,6 @@ typing-extensions==3.7.4.3
 urllib3==1.26.3
 vidgear==0.2.0
 websocket-client==0.57.0
+Werkzeug==1.0.1
 youtube-dl==2021.2.22
 zmq==0.0.0
